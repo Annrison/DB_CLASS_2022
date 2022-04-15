@@ -11,9 +11,9 @@ from sqlalchemy import null
 import cx_Oracle
 
 ## Oracle 連線
-# cx_Oracle.init_oracle_client(lib_dir="./instantclient_19_8") # init Oracle instant client 位置
-# connection = cx_Oracle.connect('account', 'password', cx_Oracle.makedsn('ip', 1521, 'orcl')) # 連線資訊
-# cursor = connection.cursor()
+cx_Oracle.init_oracle_client(lib_dir="../../instantclient_19_8") # init Oracle instant client 位置
+connection = cx_Oracle.connect('Group15', 'group15group15', cx_Oracle.makedsn('140.117.69.58', 1521, 'orcl')) # 連線資訊
+cursor = connection.cursor()
 
 ## Flask-Login : 確保未登入者不能使用系統
 app = Flask(__name__)
@@ -223,6 +223,7 @@ def cart():
             cursor.execute(None, {'id': user_id})
             connection.commit() # 把這個刪掉
 
+            
             time = str(datetime.now().strftime('%Y/%m/%d %H:%M:%S'))
             format = 'yyyy/mm/dd hh24:mi:ss'
 
@@ -572,7 +573,10 @@ def dashboard():
     for i in row:
         countList.append(i[0])
         
-    return render_template('dashboard.html', counter = counter, revenue = revenue, dataa = dataa, datab = datab, datac = datac, nameList = nameList, countList = countList)
+    return render_template('dashboard.html', 
+                           counter = counter, revenue = revenue, 
+                           dataa = dataa, datab = datab, datac = datac, 
+                           nameList = nameList, countList = countList)
 
 @app.route('/logout')  
 def logout():
